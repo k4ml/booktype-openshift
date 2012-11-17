@@ -74,3 +74,7 @@ persist between pushes of your repo.
 
 Adding deps to the install_requires will have the openshift server actually
 install those deps at git push time.
+
+## Reference
+
+http://forum.sourcefabric.org/discussion/13889/deploying-to-openshift-express-wip/p1

@@ -3,7 +3,7 @@
 Run the following command, assuming you already install rhc client:-
 
     rhc app create -a booktype -t python-2.6
-    git remote add upstream -m master git://github.com/prelegalwonder/booktype.git
+    git remote add upstream -m master git://github.com/k4ml/booktype-openshift.git
     git pull -s recursive -X theirs upstream master
     rhc app cartridge add -a booktype -c postgresql-8.4
     git push origin master

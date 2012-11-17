@@ -15,15 +15,15 @@ Feel free to change or remove this file, it is informational only.
 
 ## Repo layout
 
-wsgi/ - Externally exposed wsgi code goes
-wsgi/static/ - Public static content gets served here
-libs/ - Additional libraries
-data/ - For not-externally exposed wsgi code
-setup.py - Standard setup.py, specify deps here
-.openshift/action_hooks/pre_build - Script that gets run every git push before the build
-.openshift/action_hooks/build - Script that gets run every git push as part of the build process (on the CI system if available)
-.openshift/action_hooks/deploy - Script that gets run every git push after build but before the app is restarted
-.openshift/action_hooks/post_deploy - Script that gets run every git push after the app is restarted
+    wsgi/ - Externally exposed wsgi code goes
+    wsgi/static/ - Public static content gets served here
+    libs/ - Additional libraries
+    data/ - For not-externally exposed wsgi code
+    setup.py - Standard setup.py, specify deps here
+    .openshift/action_hooks/pre_build - Script that gets run every git push before the build
+    .openshift/action_hooks/build - Script that gets run every git push as part of the build process (on the CI system if available)
+    .openshift/action_hooks/deploy - Script that gets run every git push after build but before the app is restarted
+    .openshift/action_hooks/post_deploy - Script that gets run every git push after the app is restarted
 
 ## Notes about layout
 
@@ -59,7 +59,6 @@ Example for MongoDB:
 To get a full list of environment variables, simply add a line in your
 .openshift/action_hooks/build script that says "export" and push.
 
-
 ## Notes about layout
 
 Please leave wsgi, libs and data directories but feel free to create additional
@@ -68,7 +67,6 @@ directories if needed.
 Note: Every time you push, everything in your remote repo dir gets recreated
 please store long term items (like an sqlite database) in ../data which will
 persist between pushes of your repo.
-
 
 ## Notes about setup.py
 

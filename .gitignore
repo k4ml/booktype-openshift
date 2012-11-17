@@ -1,0 +1,5 @@
+*.pyc
+*.pyo
+libs/mybooktype/data/*
+libs/mybooktype/*.sqlite
+libs/mybooktype/logs

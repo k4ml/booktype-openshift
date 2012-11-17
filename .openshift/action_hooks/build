@@ -1,0 +1,47 @@
+#!/bin/bash
+# This is a simple build script and will be executed on your CI system if 
+# available.  Otherwise it will execute while your application is stopped
+# before the deploy step.  This script gets executed directly, so it
+# could be python, php, ruby, etc.
+
+REDIS_VERSION=2.4.12
+MAKE_IS_DONE="no"
+
+if [ ! -d ${OPENSHIFT_DATA_DIR}/redis ]; then
+  cd ${OPENSHIFT_TMP_DIR}
+  if [ ! -d redis-${REDIS_VERSION} ]; then
+    curl -L -o redis-${REDIS_VERSION}.tar.gz http://redis.googlecode.com/files/redis-${REDIS_VERSION}.tar.gz
+    tar -xvzf redis-${REDIS_VERSION}.tar.gz
+  fi
+  cd redis-${REDIS_VERSION}
+  echo "Start compiling Redis ${REDIS_VERSION} on Openshift (i'll take a while)"
+  PREFIX=${OPENSHIFT_DATA_DIR}redis make -e install
+
+  mkdir ${OPENSHIFT_DATA_DIR}/redis/data
+  MAKE_IS_DONE="yes"
+fi
+
+if [ "$MAKE_IS_DONE" == "yes" ]; then
+  echo "Make is done, now create the patch"
+  cat <<EOF >${OPENSHIFT_DATA_DIR}redis/bin/redis.conf
+daemonize yes
+pidfile ${OPENSHIFT_RUN_DIR}redis.pid
+port 0
+#unixsocket ${OPENSHIFT_GEAR_DIR}tmp/redis.sock
+unixsocket /tmp/redis.sock
+unixsocketperm 755
+dir ${OPENSHIFT_DATA_DIR}redis/data
+EOF
+fi
+
+cd ${OPENSHIFT_DATA_DIR}redis
+[ -f ${OPENSHIFT_RUN_DIR}redis.pid ] || ${OPENSHIFT_DATA_DIR}redis/bin/redis-server ${OPENSHIFT_DATA_DIR}redis/bin/redis.conf
+
+# Activate VirtualEnv in order to use the correct libraries
+source $OPENSHIFT_HOMEDIR/python-2.6/virtenv/bin/activate
+
+# set up common env
+source $OPENSHIFT_REPO_DIR/common.env
+
+echo "Executing django-admin.py collectstatic"
+django-admin.py collectstatic --noinput

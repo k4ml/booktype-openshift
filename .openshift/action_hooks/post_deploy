@@ -1,0 +1,18 @@
+#!/bin/bash
+# This is a simple post deploy hook executed after your application 
+# is deployed and started.  This script gets executed directly, so 
+# it could be python, php, ruby, etc.
+
+# Activate VirtualEnv in order to use the correct libraries
+source $OPENSHIFT_HOMEDIR/python-2.6/virtenv/bin/activate
+
+# set up common env
+source $OPENSHIFT_REPO_DIR/common.env
+
+echo "Executing django-admin.py loaddata documentation_licenses"
+django-admin.py loaddata documentation_licenses
+
+echo "Creating Data Dirs if they don't exist: mkdir -p $OPENSHIFT_DATA_DIR/books $OPENSHIFT_DATA_DIR/profile_images $OPENSHIFT_DATA_DIR/cover_images"
+mkdir -p $OPENSHIFT_DATA_DIR/books
+mkdir -p $OPENSHIFT_DATA_DIR/cover_images
+mkdir -p $OPENSHIFT_DATA_DIR/profile_images

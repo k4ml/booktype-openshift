@@ -186,6 +186,8 @@ INSTALLED_APPS = (
     'booktypecontrol'
 )
 
+# import openshift specific settings
+from mybooktype.settings_openshift import *
 
 # LOGGING
 
@@ -195,7 +197,7 @@ def init_logging():
 
     logger = logging.getLogger("booki")
     logger.setLevel(logging.DEBUG)
-    ch = logging.handlers.RotatingFileHandler('%s/logs/booki.log' % BOOKI_ROOT, maxBytes=100000, backupCount=5)
+    ch = logging.handlers.RotatingFileHandler('%s/booki.log' % OPENSHIFT_LOG_DIR, maxBytes=100000, backupCount=5)
     ch.setLevel(logging.DEBUG)
     ch.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s"))
     logger.addHandler(ch)
@@ -205,9 +207,6 @@ logInitDone=False
 if not logInitDone:
     logInitDone = True
     init_logging()
-
-# import openshift specific settings
-from mybooktype.settings_openshift import *
 
 from booki.utils import config
 

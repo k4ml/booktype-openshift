@@ -82,4 +82,5 @@ install those deps at git push time.
 ## Reference
 
 http://forum.sourcefabric.org/discussion/13889/deploying-to-openshift-express-wip/p1
+
 https://github.com/razorinc/redis-openshift-example

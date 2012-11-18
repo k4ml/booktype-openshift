@@ -17,6 +17,19 @@ You have to create admin user manually by login to the cartridge. Use command `g
     ssh <cartridge-id>@booktype-yournamespace.rhcloud.com
     source app-root/repo/common.env && python-2.6/virtenv/bin/django-admin.py createsuperuser
 
+## Local Development
+
+Assuming you use virtualenvwrapper to manage your virtualenv:-
+
+    mkvirtualenv booktype
+    python setup.py install
+    source common.env && source local.env
+    django-admin.py syncdb --noinput
+    django-admin.py migrate
+    django-admin.py loaddata documentation_licenses
+    django-admin.py createsuperuser
+    django-admin.py runserver
+
 Feel free to change or remove this file, it is informational only.
 
 ## Repo layout

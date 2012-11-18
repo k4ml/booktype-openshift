@@ -1,3 +1,7 @@
+This is a quickstart to get [Booktype][1] running at Openshift. It also create local Redis instance that required for the Booktype authoring environment to be usable. This is still a work in progress and the Redis setup definitely unsecured at this moment.
+
+[1]:http://www.sourcefabric.org/en/booktype/
+
 ## Deployment
 
 Run the following command, assuming you already install rhc client:-
@@ -78,3 +82,4 @@ install those deps at git push time.
 ## Reference
 
 http://forum.sourcefabric.org/discussion/13889/deploying-to-openshift-express-wip/p1
+https://github.com/razorinc/redis-openshift-example
